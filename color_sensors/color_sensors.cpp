@@ -4,8 +4,9 @@ ColorSensors::ColorSensors(
     uint8_t sda1, 
     uint8_t scl1, 
     uint8_t sda2, 
-    uint8_t scl2
-): _sda1(sda1), _scl1(scl1), _sda2(sda2), _scl2(scl2) {};
+    uint8_t scl2,
+    String colors[]
+): _sda1(sda1), _scl1(scl1), _sda2(sda2), _scl2(scl2), _colors(colors) {};
 
 bool ColorSensors::begin() {
     bool success_status = true;
@@ -93,11 +94,11 @@ String ColorSensors::detectColor(uint16_t r, uint16_t g, uint16_t b, uint16_t c)
     return "W";
 };
 
-void ColorSensors::readColors(String colors[2]) {
+void ColorSensors::readColors() {
     uint16_t r[2], g[2], b[2], c[2];
 
-    colors[0] = "W";
-    colors[1] = "W";
+    _colors[0] = "W";
+    _colors[1] = "W";
     
     if (!_sensorActive[0] || !_sensorActive[1]) {
         return;
@@ -106,8 +107,8 @@ void ColorSensors::readColors(String colors[2]) {
     _sensor1.getRawData(&r[0], &g[0], &b[0], &c[0]);
     _sensor2.getRawData(&r[1], &g[1], &b[1], &c[1]);
     
-    colors[0] = detectColor(r[0], g[0], b[0], c[0]);
-    colors[1] = detectColor(r[1], g[1], b[1], c[1]);
+    _colors[0] = detectColor(r[0], g[0], b[0], c[0]);
+    _colors[1] = detectColor(r[1], g[1], b[1], c[1]);
 };
 
 void ColorSensors::printRawValues() {

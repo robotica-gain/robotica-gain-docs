@@ -7,11 +7,11 @@
 
 class ColorSensors {
     public:
-        ColorSensors(uint8_t sda1, uint8_t scl1, uint8_t sda2, uint8_t scl2);
+        ColorSensors(uint8_t sda1, uint8_t scl1, uint8_t sda2, uint8_t scl2, String colors[]);
         
         bool begin();
         
-        void readColors(String colors[2]);
+        void readColors();
         
         void printRawValues();
         void setCalibration(
@@ -28,6 +28,7 @@ class ColorSensors {
         
         uint8_t _sda1, _scl1;
         uint8_t _sda2, _scl2;
+        String _colors[2];
         bool _sensorActive[NUM_SENSORS];
         
         Adafruit_TCS34725 _sensor1;
