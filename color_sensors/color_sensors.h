@@ -28,7 +28,7 @@ class ColorSensors {
         
         uint8_t _sda1, _scl1;
         uint8_t _sda2, _scl2;
-        String _colors[2];
+        String* _colors;
         bool _sensorActive[NUM_SENSORS];
         
         Adafruit_TCS34725 _sensor1;
